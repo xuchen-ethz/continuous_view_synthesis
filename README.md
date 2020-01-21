@@ -4,50 +4,39 @@ This is the code base for our paper [**Monocular Neural Image-based Rendering wi
 
 ## Prerequisites
 - Ubuntu 16.04
-- Python 3
-- NVIDIA GPU + CUDA CuDNN
-- Pytorch 0.4.0
+- Python 3.6
+- NVIDIA GPU + CUDA 8.0
+- Pytorch 1.1.0
 
 ### Installation
-- Install PyTorch and dependencies from http://pytorch.org
-- Install Torch vision from the source.
-```bash
-git clone https://github.com/pytorch/vision
-cd vision
-python setup.py install
-```
-- Install python libraries [visdom](https://github.com/facebookresearch/visdom), [dominate](https://github.com/Knio/dominate) and [imageio](https://pypi.org/project/imageio/)
-```bash
-pip install visdom
-pip install dominate
-pip install imageio
-pip install pandas
-```
 - Clone this repo:
 ```bash
-git clone git@github.com:cx921003/ContViewSynthesis.git
-cd ContViewSynthesis
+git clone https://github.com/xuchen-ethz/continuous_view_synthesis.git
+cd continuous_view_synthesis
 ```
-## Demo
+- Install dependencies.
+```bash
+pip install -r requirements.txt
+```
+### Interactive Demonstration
 
-- Download a pre-trained model from our [Google Drive](https://goo.gl/P7jA4a);
+- Download a pre-trained model from our [Google Drive](https://drive.google.com/drive/folders/1yV-nq8EfM2cybk2ciRY5BL0mKeciqKqR?usp=sharing);
 - Unzip the model under ``./checkpoints/`` folder;
-- Run ``./demo_car.sh`` or ``./demo_kitti.sh`` to run the demo.
+- For interactive demonstration, run ``./demo_car.sh`` or ``./demo_kitti.sh``.
+- In car demo, you can drag the image to move the car as in 3D.
+- In KITTI demo, you can move by pressing ``w,a,s,d`` to move in the scene. After single-clicking the image, the viewing angle will change with the cursor.
+- Note that the interactive demonstration only works within a certain movement range due to training data and dis-occlusions.
+
+### Testing
+- Dowoload and unzip pre-trained weights in the same way as for [interactive demonstration](#interactive-demonstration).
+- Run ``./test_car.sh``, ``./demo_chair.sh`` or ``./demo_kitti.sh`` to run the demo.
+The test results will be saved to `.gif` files and a html file here: `./results/car/latest_test/`.
 
 ### Training
-- Download a dataset from our [Google Drive](https://goo.gl/4bj6GD);
+- Download a dataset from our [Google Drive](https://drive.google.com/drive/folders/1YbgU-JOXYsGi7yTrYb1F3niXj6nZp4Li?usp=sharing);
 - Unzip the dataset under ``./datasets/`` folder;
-- Train a model by running ``./training_car.sh``, ``./training_chair.sh`` or ``./training_kitti.sh``
+- Train a model by running ``./train_car.sh``, ``./demo_chair.sh`` or ``./train_kitti.sh``
 - To view training results and loss plots, run `python -m visdom.server` and click the URL http://localhost:8097. To see more intermediate results, check out `./checkpoints/$name/`
-
-### Testing:
-- Configure the following arguments in ``./test.sh``:
-    - ``dataroot``: the path to the test images
-    - ``name``: the name of the model, make sure the model exists under ``./checkpoint/``
-    - ``test_views``: number of views to generate per input image
-- Test the model: ``./testing.sh``
-
-The test results will be saved to `.gif` files and a html file here: `./results/car/latest_test/`.
 
 ## Citation
 If you find this repository useful for your research, please consider citing our paper.
